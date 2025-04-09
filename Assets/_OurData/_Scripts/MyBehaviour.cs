@@ -13,6 +13,11 @@ public class MyBehaviour : MonoBehaviour
     {
         this.LoadComponents();
     }
+
+    protected virtual void FixedUpdate()
+    {
+        //For Override
+    }
     protected virtual void LoadComponents()
     {
         //For Override

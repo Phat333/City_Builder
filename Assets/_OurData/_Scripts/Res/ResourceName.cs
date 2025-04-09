@@ -19,7 +19,7 @@ public enum ResourceName
 
     //Materials Level 1
     water = 1000,
-    wood = 1001,
+    logwood = 1001,
     ironOre = 1002,
 
     //Materials Level 2

@@ -2,26 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResGenerator : MyBehaviour
+public class ResGenerator : WareHouse
 {
-    [SerializeField] protected List<ResHolder> resHolders;
+    [SerializeField] protected List<Resource> resCreate;
+    [SerializeField] protected List<Resource> resRequire;
+    [SerializeField] protected float createTime = 5f;
+    [SerializeField] protected float createDelay = 20f;
 
-    protected override void LoadComponents()
+    protected override void FixedUpdate()
     {
-        this.LoadHolders();
+        this.Creating();
     }
-    protected virtual void LoadHolders()
-    {
-        if(this.resHolders.Count > 0) return;
 
-        Transform res = transform.Find("Res");
-        foreach(Transform resTran in res)
+    
+
+    protected virtual void Creating()
+    {
+        this.createTime += Time.fixedDeltaTime;
+        if (this.createTime < this.createDelay) return;
+        this.createTime = 0;
+
+        if (!this.IsRequireEnough()) return;
+        foreach(Resource res in this.resCreate)
         {
-            Debug.Log(resTran.name);
-            ResHolder resHolder = resTran.GetComponent<ResHolder>();
-            if (resHolder == null) continue;
-            this.resHolders.Add(resHolder);
+            //ResHolder resHolder = this.resHolders.Find((holder) => holder.Name() == res.name);
+            ResHolder resHolder = this.GetHolder(res.name);
+            resHolder.Add(res.number);
         }
-        Debug.Log(transform.name+" LoadHolders");
+    }
+
+    protected virtual bool IsRequireEnough()
+    {
+        if (this.resRequire.Count < 1) return true;
+        return false;
+    }
+    
+
+    public virtual float GetCreateDelay()
+    {
+        return this.createDelay;
     }
 }
