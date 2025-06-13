@@ -7,5 +7,5 @@ using UnityEngine;
 public class Resource 
 {
     public ResourceName name;
-    public int number;
+    public float number;
 }

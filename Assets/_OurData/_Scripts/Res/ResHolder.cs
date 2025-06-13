@@ -16,15 +16,17 @@ public class ResHolder : MyBehaviour
     }
     protected virtual void LoadResName()
     {
+        if(this.resourceName != ResourceName.noResource) return;
         string name = transform.name;
         this.resourceName = ResNameParser.FromString(name);
+        Debug.Log(transform.name + " : Load Resource Name", gameObject);
     }
 
     public virtual ResourceName Name()
     {
         return this.resourceName;
     }
-    public virtual float Add(int number)
+    public virtual float Add(float number)
     {
         this.resCurrent += number;
 
@@ -35,9 +37,26 @@ public class ResHolder : MyBehaviour
         return this.resCurrent;
     }
 
+    public virtual float ResCurrent()
+    {
+        return this.resCurrent;
+    }
+
+    public virtual float TakeAll()
+    {
+        float take = this.resCurrent;
+        this.resCurrent = 0;
+        return take;
+    }
+
     public virtual void SetLimit(float max)
     {
         this.resMax = max;
+    }
+
+    public virtual bool IsMax()
+    {
+        return this.resCurrent == this.resMax;
     }
 
 }

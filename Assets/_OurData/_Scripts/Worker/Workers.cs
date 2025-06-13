@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Workers : MyBehaviour
 {
-    [SerializeField] protected List<Transform> workers;
+    [SerializeField] protected int maxWorker = 1;
+    [SerializeField] protected List<WorkerCtrl> workers;
 
     protected override void LoadComponents()
     {
@@ -16,10 +17,22 @@ public class Workers : MyBehaviour
         if (this.workers.Count > 0) return;
 
         Transform workers = transform.Find("Workers");
-        foreach (Transform worker in workers)
+        foreach (WorkerCtrl worker in workers)
         {
             this.workers.Add(worker);
         }
         Debug.Log(transform.name + ": Load Workers");
+    }
+
+    public virtual bool IsNeedWorker()
+    {
+        if (this.workers.Count >= this.maxWorker) return false;
+        return true;
+    }
+    public virtual void AddWorker(WorkerCtrl worker)
+    {
+        
+        this.workers.Add(worker);
+        
     }
 }
