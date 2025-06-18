@@ -2949,11 +2949,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trees: []
---- !u!195 &434944890 stripped
-NavMeshAgent:
-  m_CorrespondingSourceObject: {fileID: 145304562656648569, guid: a892e7e09c9f70042b9dfcabe0074f8b, type: 3}
-  m_PrefabInstance: {fileID: 145304562470721172}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &454187471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3312,17 +3307,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9069115365609054727, guid: 60f79905accf3b24fa0114b941f1aac0, type: 3}
   m_PrefabInstance: {fileID: 509495613}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &520669577 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2279363930065632019, guid: a892e7e09c9f70042b9dfcabe0074f8b, type: 3}
-  m_PrefabInstance: {fileID: 145304562470721172}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d374bf6fbe6adf4e879ae397c280044, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &540807875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3463,17 +3447,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2807449429036539767, guid: f0c16f0ea935ea64297ca1d4d55d9746, type: 3}
   m_PrefabInstance: {fileID: 543917143}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &548098382 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3113440868684531622, guid: a892e7e09c9f70042b9dfcabe0074f8b, type: 3}
-  m_PrefabInstance: {fileID: 145304562470721172}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8736ce5b721c144d963f3393f7e10e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &558752018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4320,17 +4293,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3356751432537613521, guid: ffbddc4ef9676cc419e81e06aaa836d8, type: 3}
   m_PrefabInstance: {fileID: 674723165}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &679703690 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1084784431932414568, guid: a892e7e09c9f70042b9dfcabe0074f8b, type: 3}
-  m_PrefabInstance: {fileID: 145304562470721172}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcea636ab30ba9a42814e3c010633fff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &681342909
 GameObject:
   m_ObjectHideFlags: 0
@@ -10613,10 +10575,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 681342910}
     m_Modifications:
-    - target: {fileID: 145304562656648569, guid: a892e7e09c9f70042b9dfcabe0074f8b, type: 3}
-      propertyPath: m_Speed
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 145304562656648574, guid: a892e7e09c9f70042b9dfcabe0074f8b, type: 3}
       propertyPath: m_Name
       value: WoodCutter
@@ -10665,26 +10623,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1084784431932414568, guid: a892e7e09c9f70042b9dfcabe0074f8b, type: 3}
-      propertyPath: navMeshAgent
-      value: 
-      objectReference: {fileID: 434944890}
-    - target: {fileID: 2279363930065632019, guid: a892e7e09c9f70042b9dfcabe0074f8b, type: 3}
-      propertyPath: workerCtrl
-      value: 
-      objectReference: {fileID: 679703690}
-    - target: {fileID: 3113440868684531622, guid: a892e7e09c9f70042b9dfcabe0074f8b, type: 3}
-      propertyPath: workerCtrl
-      value: 
-      objectReference: {fileID: 679703690}
-    - target: {fileID: 5508702563595708382, guid: a892e7e09c9f70042b9dfcabe0074f8b, type: 3}
-      propertyPath: taskGoHome
-      value: 
-      objectReference: {fileID: 520669577}
-    - target: {fileID: 5508702563595708382, guid: a892e7e09c9f70042b9dfcabe0074f8b, type: 3}
-      propertyPath: taskWorking
-      value: 
-      objectReference: {fileID: 548098382}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a892e7e09c9f70042b9dfcabe0074f8b, type: 3}
 --- !u!1001 &509948275067692154
