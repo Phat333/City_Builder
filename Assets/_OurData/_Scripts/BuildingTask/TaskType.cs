@@ -8,5 +8,6 @@ public enum TaskType
     plantTree = 101,
     chopTree = 102,
     findTreeToChop = 103,
+    bringResourceBack = 104,
 
 }

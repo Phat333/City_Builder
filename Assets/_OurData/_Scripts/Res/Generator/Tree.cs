@@ -9,6 +9,7 @@ public class Tree : ResGenerator
         base.LoadComponents();
         this.LoadResCreate();
         this.SetLimit();
+        //this.buildingType = BuildingType.resource;
     }
 
     protected virtual void LoadResCreate()
@@ -28,4 +29,5 @@ public class Tree : ResGenerator
         ResHolder resHolder = this.GetHolder(ResourceName.logwood);
         resHolder.SetLimit(10);
     }
+    
 }

@@ -6,6 +6,7 @@ public class WareHouse : MyBehaviour
 {
     public BuildingType buildingType;
     [SerializeField] protected List<ResHolder> resHolders;
+    [SerializeField] protected bool isFull = false;
 
     protected override void LoadComponents()
     {
@@ -28,5 +29,29 @@ public class WareHouse : MyBehaviour
     public virtual ResHolder GetHolder(ResourceName name)
     {
         return this.resHolders.Find((holder) => holder.Name() == name);
+    }
+
+    public virtual void AddByList(List<Resource> addResources)
+    {
+        foreach (Resource addResource in addResources)
+        {
+            this.AddResource(addResource.name, addResource.number);
+        }
+    }
+
+    public virtual ResHolder AddResource(ResourceName resourceName, float number)
+    {
+        ResHolder resHolder = this.GetHolder(resourceName);
+        resHolder.Add(number);
+        return resHolder;
+    }
+
+    public virtual bool IsFull()
+    {
+        foreach (ResHolder resHolder in this.resHolders)
+        {
+            if (!resHolder.IsMax()) return false;
+        }
+        return true;
     }
 }

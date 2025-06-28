@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8920323039412536725}
   - component: {fileID: 5508702563595708382}
   - component: {fileID: 434944892}
+  - component: {fileID: 8225414340907729155}
   m_Layer: 0
   m_Name: WoodCutter
   m_TagString: Untagged
@@ -98,6 +99,7 @@ MonoBehaviour:
   animator: {fileID: 6011931751263843287}
   workerModel: {fileID: 400399012198672813}
   navMeshAgent: {fileID: 145304562656648569}
+  resCarrier: {fileID: 0}
 --- !u!114 &8920323039412536725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +153,19 @@ MonoBehaviour:
   homeBuilding: {fileID: 0}
   inBuildings: []
   relaxBuildings: []
+--- !u!114 &8225414340907729155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145304562656648574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7ab6d75944dd342957359a7e957ea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resources: []
 --- !u!1 &1138299377317185373
 GameObject:
   m_ObjectHideFlags: 0

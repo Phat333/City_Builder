@@ -11,9 +11,9 @@ public class ForestHutTask : BuildingTask
     [SerializeField] protected float treeDistance = 7f;
     [SerializeField] protected List<GameObject> trees;
     [SerializeField] protected int treeMax = 7;
-    //[SerializeField] protected float treeRemoveSpeed = 16;
+    [SerializeField] protected float treeRemoveSpeed = 16;
     [SerializeField] protected List<GameObject> treePrefabs;
-    [SerializeField] protected int storeMax = 7;
+    [SerializeField] protected int storeMax = 21;
     [SerializeField] protected int storeCurrent = 0;
     [SerializeField] protected float chopSpeed = 7;
 
@@ -64,8 +64,8 @@ public class ForestHutTask : BuildingTask
             case TaskType.chopTree:
                 this.ChopTree(workerCtrl);
                 break;
-            case TaskType.goToWorkStation:
-                this.BackToWorkStation(workerCtrl);
+            case TaskType.bringResourceBack:
+                this.BringTreeBack(workerCtrl);
                 break;
             default:
                 if (this.IsTimeToWork()) this.Planning(workerCtrl);
@@ -76,11 +76,17 @@ public class ForestHutTask : BuildingTask
     protected virtual void Planning(WorkerCtrl workerCtrl)
 
     {
-        if(this.NeedMoreTree()) workerCtrl.workerTasks.TaskAdd(TaskType.plantTree);
-        if (!this.IsStoreFull())
+        if (!this.buildingCtrl.wareHouse.IsFull())
         {
+            workerCtrl.workerTasks.TaskAdd(TaskType.bringResourceBack);
             workerCtrl.workerTasks.TaskAdd(TaskType.chopTree);
             workerCtrl.workerTasks.TaskAdd(TaskType.findTreeToChop);
+        }
+
+        if (this.NeedMoreTree())
+        {
+            workerCtrl.workerMovement.SetTarget(null);
+            workerCtrl.workerTasks.TaskAdd(TaskType.plantTree);
         }
     }
 
@@ -180,6 +186,7 @@ public class ForestHutTask : BuildingTask
         if(workerCtrl.workerMovement.IsWorking) return;
         workerCtrl.workerMovement.IsWorking = true;
         StartCoroutine(Chopping(workerCtrl, workerCtrl.workerTasks.taskTarget));
+        Debug.Log("ChopTree continue");
     }
 
     IEnumerator Chopping(WorkerCtrl workerCtrl, Transform tree)
@@ -190,14 +197,27 @@ public class ForestHutTask : BuildingTask
 
         TreeCtrl treeCtrl = tree.GetComponent<TreeCtrl>();
         treeCtrl.treeLevel.ShowLastBuild();
-        treeCtrl.logwoodGenerator.TakeAll(ResourceName.logwood);
+
+        List<Resource> resources = treeCtrl.logwoodGenerator.TakeAll();
+        //treeCtrl.logwoodGenerator.TakeAll(ResourceName.logwood);
         treeCtrl.choper = null;
         this.trees.Remove(treeCtrl.gameObject);
         TreeManager.Instance.Trees().Remove(treeCtrl.gameObject);
 
         workerCtrl.workerMovement.IsWorking = false;
         workerCtrl.workerTasks.taskTarget = null;
+        workerCtrl.resCarrier.AddByList(resources);
+
         workerCtrl.workerTasks.TaskCurrentDone();
+
+
+        StartCoroutine(RemoveTree(tree));
+    }
+
+    IEnumerator RemoveTree(Transform tree)
+    {
+        yield return new WaitForSeconds(this.treeRemoveSpeed);
+        Destroy(tree.gameObject);
     }
 
     protected virtual void FindTreeToChop(WorkerCtrl workerCtrl)
@@ -235,6 +255,17 @@ public class ForestHutTask : BuildingTask
     {
         return this.storeCurrent >= this.storeMax;
     }
+    protected virtual void BringTreeBack(WorkerCtrl workerCtrl)
+    {
+        WorkerTask taskWorking = workerCtrl.workerTasks.taskWorking;
+        taskWorking.GotoBuilding();
+        if (!workerCtrl.workerMovement.IsCloseToTarget()) return;
 
+        List<Resource> resources = workerCtrl.resCarrier.TakeAll();
+        this.buildingCtrl.wareHouse.AddByList(resources);
+        taskWorking.GoIntoBuilding();
+
+        workerCtrl.workerTasks.TaskCurrentDone();
+    }
 }
 

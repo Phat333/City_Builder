@@ -11,7 +11,7 @@ public class WorkerCtrl : MyBehaviour
     public Animator animator;
     public Transform workerModel;
     public NavMeshAgent navMeshAgent;
-    //public ResCarrier resCarrier;
+    public resCarrier resCarrier;
 
     protected override void LoadComponents()
     {
@@ -21,6 +21,7 @@ public class WorkerCtrl : MyBehaviour
         this.LoadAnimator();
         this.LoadWorkerTasks();
         this.LoadAgent();
+        this.LoadResCarrier(); 
     }
 
     protected virtual void LoadWorkerTasks()
@@ -59,5 +60,12 @@ public class WorkerCtrl : MyBehaviour
         this.navMeshAgent = GetComponent<NavMeshAgent>();
         this.navMeshAgent.speed = 2f;
         Debug.Log(transform.name + ": LoadNavMeshAgent", gameObject);
+    }
+
+    protected virtual void LoadResCarrier()
+    {
+        if (this.resCarrier != null) return;
+        this.resCarrier = GetComponent<resCarrier>();
+        Debug.Log(transform.name + ": LoadResCarrier", gameObject);
     }
 }
