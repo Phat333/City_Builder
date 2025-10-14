@@ -11,7 +11,7 @@ public class WorkerTasks : MyBehaviour
     public WorkerTask taskWorking;
     public WorkerTask taskGoHome;
     public Transform taskTarget;
-    public BuildingCtrl TaskBuildingCtrl;
+    public BuildingCtrl taskBuildingCtrl;
     [SerializeField] protected List<TaskType> tasks;
 
     protected override void Awake()

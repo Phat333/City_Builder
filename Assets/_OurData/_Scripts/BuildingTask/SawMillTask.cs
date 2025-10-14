@@ -6,66 +6,38 @@ using UnityEngine;
 public class SawMillTask : BuildingTask
 {
     [Header("SawMillTask")]
-    [SerializeField] protected GameObject plantTreeObj;
-    [SerializeField] protected float treeRange = 27f;
-    [SerializeField] protected float treeDistance = 7f;
-    [SerializeField] protected List<GameObject> trees;
-    [SerializeField] protected int treeMax = 7;
-    [SerializeField] protected float treeRemoveSpeed = 16;
-    [SerializeField] protected List<GameObject> treePrefabs;
-    [SerializeField] protected int storeMax = 21;
-    [SerializeField] protected int storeCurrent = 0;
-    [SerializeField] protected float chopSpeed = 7;
-
-    protected override void Start()
-    {
-        base.Start();
-        this.LoadNearByTree();
-    }
-
-
+    [SerializeField] protected Transform workingPoint;
+    [SerializeField] protected float logWoodCost = 1;
+    [SerializeField] protected float plankReceive = 2;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadObjects();
-        this.LoadTreePrefabs();
+        this.LoadWorkingPoint();
     }
 
-    protected virtual void LoadObjects()
+    protected virtual void LoadWorkingPoint()
     {
-        if (this.plantTreeObj != null) return;
-        this.plantTreeObj = Resources.Load<GameObject>("Building/MaskPositionObject");
-        Debug.Log(transform.name + " : Load Plant Tree Object", gameObject);
+        if (this.workingPoint != null) return;
+        this.workingPoint = transform.Find("WorkingPoint");
+        Debug.Log(transform.name + " LoadWorkingPoint", gameObject);
     }
 
-    protected virtual void LoadTreePrefabs()
-    {
-        if (this.treePrefabs.Count > 0) return;
-        GameObject tree1 = Resources.Load<GameObject>("Res/Tree_1");
-        GameObject tree2 = Resources.Load<GameObject>("Res/Tree_2");
-        GameObject tree3 = Resources.Load<GameObject>("Res/Tree_3");
-        this.treePrefabs.Add(tree1);
-        this.treePrefabs.Add(tree2);
-        this.treePrefabs.Add(tree3);
-        Debug.Log(transform.name + " LoadObjects", gameObject);
-    }
 
     public override void DoingTask(WorkerCtrl workerCtrl)
     {
         switch (workerCtrl.workerTasks.TaskCurrent())
         {
-            case TaskType.plantTree:
-                this.PlantTree(workerCtrl);
+            case TaskType.makingResource:
+                this.MakeingResource(workerCtrl);
+                Debug.Log("SawMillTask makingResource");
                 break;
-            case TaskType.findTreeToChop:
-                this.FindTreeToChop(workerCtrl);
+            case TaskType.gotoWorkingPoint:
+                this.GotoWorkingPoint(workerCtrl);
+                Debug.Log("SawMillTask gotoWorkingPoint");
                 break;
-            case TaskType.chopTree:
-                this.ChopTree(workerCtrl);
-                break;
-            case TaskType.bringResourceBack:
-                this.BringTreeBack(workerCtrl);
+            case TaskType.goToWorkStation:
+                this.BackToWorkStation(workerCtrl);
                 break;
             default:
                 if (this.IsTimeToWork()) this.Planning(workerCtrl);
@@ -73,198 +45,60 @@ public class SawMillTask : BuildingTask
         }
     }
 
+    protected virtual void MakeingResource(WorkerCtrl workerCtrl)
+    {
+
+        if (workerCtrl.workerMovement.IsWorking) return;
+        StartCoroutine(Sawing(workerCtrl));
+        
+    }
+
+    IEnumerator Sawing(WorkerCtrl workerCtrl)
+    {
+        workerCtrl.workerMovement.IsWorking = true;
+        workerCtrl.workerMovement.workingType = WorkingType.sawWood;
+        yield return new WaitForSeconds(this.workTimer);
+
+        this.buildingCtrl.wareHouse.RemoveResource(ResourceName.logwood, this.logWoodCost);
+
+        this.buildingCtrl.wareHouse.AddResource(ResourceName.plank, this.plankReceive);
+
+        workerCtrl.workerMovement.IsWorking = false;
+        workerCtrl.workerTasks.TaskCurrentDone();
+
+    }
+
     protected virtual void Planning(WorkerCtrl workerCtrl)
 
     {
-        if (!this.buildingCtrl.wareHouse.IsFull())
+        if (!this.IsStoreFull()&& this.HasLogwood())
         {
-            workerCtrl.workerTasks.TaskAdd(TaskType.bringResourceBack);
-            workerCtrl.workerTasks.TaskAdd(TaskType.chopTree);
-            workerCtrl.workerTasks.TaskAdd(TaskType.findTreeToChop);
-        }
-
-        if (this.NeedMoreTree())
-        {
-            workerCtrl.workerMovement.SetTarget(null);
-            workerCtrl.workerTasks.TaskAdd(TaskType.plantTree);
+            workerCtrl.workerTasks.TaskAdd(TaskType.goToWorkStation);
+            workerCtrl.workerTasks.TaskAdd(TaskType.makingResource);
+            workerCtrl.workerTasks.TaskAdd(TaskType.gotoWorkingPoint);
         }
     }
 
-    protected virtual bool NeedMoreTree()
-    {
-        return this.treeMax >= this.trees.Count;
-    }
 
-    protected virtual void PlantTree(WorkerCtrl workerCtrl)
-    {
-        Transform target = workerCtrl.workerMovement.GetTarget();
-        if (target == null) target = this.GetPlantPlace();
-        if (target == null) return;
-
-        workerCtrl.workerTasks.taskWorking.GoOutBuilding();
-        workerCtrl.workerMovement.SetTarget(target);
-
-        if (workerCtrl.workerMovement.IsCloseToTarget())
-        {
-
-
-            this.Planting(workerCtrl.transform);
-            workerCtrl.workerMovement.SetTarget(null);
-            Destroy(target.gameObject);
-            if (!this.NeedMoreTree())
-            {
-                workerCtrl.workerTasks.TaskCurrentDone();
-                workerCtrl.workerTasks.TaskAdd(TaskType.goToWorkStation);
-            }
-        }
-    }
-
-    protected virtual void Planting(Transform trans)
-    {
-        GameObject treePrefab = this.GettreePrefab();
-        GameObject treeObj = Instantiate<GameObject>(treePrefab);
-        treeObj.transform.position = trans.position;
-        treeObj.transform.rotation = trans.rotation;
-        this.trees.Add(treeObj);
-        TreeManager.Instance.TreeAdd(treeObj);
-    }
-
-    protected virtual GameObject GettreePrefab()
-    {
-        int rand = Random.Range(0, this.treePrefabs.Count);
-        return this.treePrefabs[rand];
-    }
-
-    protected virtual Transform GetPlantPlace()
-    {
-
-        Vector3 newTreePos = this.RandomPlaceForTree();
-        float dis = Vector3.Distance(transform.position, newTreePos);
-        if (dis < this.treeDistance)
-        {
-            Debug.Log("GetPlantPlace Destroy GameObject", gameObject);
-            return null;
-        }
-
-        GameObject treePlace = Instantiate(this.plantTreeObj);
-        treePlace.transform.position = newTreePos;
-
-        return treePlace.transform;
-    }
-
-    protected virtual Vector3 RandomPlaceForTree()
-    {
-        Vector3 positon = transform.position;
-        positon.x += Random.Range(this.treeRange * -1, this.treeRange);
-        positon.y = 0;
-        positon.z += Random.Range(this.treeRange * -1, this.treeRange);
-
-        return positon;
-    }
-
-    protected virtual void LoadNearByTree()
-    {
-        List<GameObject> allTrees = TreeManager.Instance.Trees();
-        float dis;
-        foreach (GameObject tree in allTrees)
-        {
-            dis = Vector3.Distance(tree.transform.position, transform.position);
-            if (dis > this.treeDistance) continue;
-            this.trees.Add(tree);
-
-        }
-    }
-
-    public virtual void TreeAdd(GameObject tree)
-    {
-        if (this.trees.Contains(tree)) return;
-        this.trees.Add(tree);
-    }
-
-    public virtual void ChopTree(WorkerCtrl workerCtrl)
-    {
-        if (workerCtrl.workerMovement.IsWorking) return;
-        workerCtrl.workerMovement.IsWorking = true;
-        StartCoroutine(Chopping(workerCtrl, workerCtrl.workerTasks.taskTarget));
-        Debug.Log("ChopTree continue");
-    }
-
-    IEnumerator Chopping(WorkerCtrl workerCtrl, Transform tree)
-    {
-        Debug.Log("Chopping Tree", gameObject);
-        yield return new WaitForSeconds(this.chopSpeed);
-        Debug.Log("Chopping Yield", gameObject);
-
-        TreeCtrl treeCtrl = tree.GetComponent<TreeCtrl>();
-        treeCtrl.treeLevel.ShowLastBuild();
-
-        List<Resource> resources = treeCtrl.logwoodGenerator.TakeAll();
-        //treeCtrl.logwoodGenerator.TakeAll(ResourceName.logwood);
-        treeCtrl.choper = null;
-        this.trees.Remove(treeCtrl.gameObject);
-        TreeManager.Instance.Trees().Remove(treeCtrl.gameObject);
-
-        workerCtrl.workerMovement.IsWorking = false;
-        workerCtrl.workerTasks.taskTarget = null;
-        workerCtrl.resCarrier.AddByList(resources);
-
-        workerCtrl.workerTasks.TaskCurrentDone();
-
-
-        StartCoroutine(RemoveTree(tree));
-    }
-
-    IEnumerator RemoveTree(Transform tree)
-    {
-        yield return new WaitForSeconds(this.treeRemoveSpeed);
-        Destroy(tree.gameObject);
-    }
-
-    protected virtual void FindTreeToChop(WorkerCtrl workerCtrl)
-    {
-        WorkerTasks workerTasks = workerCtrl.workerTasks;
-        if (workerTasks.inHouse) workerTasks.taskWorking.GoOutBuilding();
-        if (workerTasks.taskTarget == null)
-        {
-            this.FindNearestTree(workerCtrl);
-        }
-        else if (workerCtrl.workerMovement.TargetDistance() <= 1.5)
-        {
-            workerCtrl.workerMovement.SetTarget(null);
-            workerCtrl.workerTasks.TaskCurrentDone();
-        }
-    }
-
-    protected virtual void FindNearestTree(WorkerCtrl workerCtrl)
-    {
-        foreach (GameObject tree in this.trees)
-        {
-            TreeCtrl treeCtrl = tree.GetComponent<TreeCtrl>();
-            if (treeCtrl == null) continue;
-            if (!treeCtrl.treeLevel.IsMaxLevel()) continue;
-            if (treeCtrl.choper != null) continue;
-
-            treeCtrl.choper = workerCtrl;
-            workerCtrl.workerTasks.taskTarget = treeCtrl.transform;
-            workerCtrl.workerMovement.SetTarget(treeCtrl.transform);
-            return;
-        }
-    }
 
     protected virtual bool IsStoreFull()
     {
-        return this.storeCurrent >= this.storeMax;
+        return false;
     }
-    protected virtual void BringTreeBack(WorkerCtrl workerCtrl)
+    protected virtual bool HasLogwood()
     {
-        WorkerTask taskWorking = workerCtrl.workerTasks.taskWorking;
-        taskWorking.GotoBuilding();
+        return true;
+    }
+
+    protected virtual void GotoWorkingPoint(WorkerCtrl workerCtrl)
+    {
+        WorkerTasks workerTasks = workerCtrl.workerTasks;
+        if(workerTasks.inHouse) workerTasks.taskWorking.GoOutBuilding();
+
+        Transform target = workerCtrl.workerMovement.GetTarget();
+        if (target == null) workerCtrl.workerMovement.SetTarget(this.workingPoint);
         if (!workerCtrl.workerMovement.IsCloseToTarget()) return;
-
-        List<Resource> resources = workerCtrl.resCarrier.TakeAll();
-        this.buildingCtrl.wareHouse.AddByList(resources);
-        taskWorking.GoIntoBuilding();
-
+        workerCtrl.workerMovement.SetTarget(null);
         workerCtrl.workerTasks.TaskCurrentDone();
     }
 }

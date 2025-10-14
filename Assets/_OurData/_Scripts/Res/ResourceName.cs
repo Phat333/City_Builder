@@ -23,7 +23,7 @@ public enum ResourceName
     ironOre = 1002,
 
     //Materials Level 2
-    blank = 2001,
+    plank = 2001,
     ironIngot = 2002,
 
 }

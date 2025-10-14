@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WareHouse : MyBehaviour
 {
-    public BuildingType buildingType;
+    public BuildingType buildingType = BuildingType.workStation;
     [SerializeField] protected List<ResHolder> resHolders;
     [SerializeField] protected bool isFull = false;
 
@@ -26,7 +26,7 @@ public class WareHouse : MyBehaviour
         }
         Debug.Log(transform.name + " LoadHolders");
     }
-    public virtual ResHolder GetHolder(ResourceName name)
+    public virtual ResHolder GetResource(ResourceName name)
     {
         return this.resHolders.Find((holder) => holder.Name() == name);
     }
@@ -41,9 +41,16 @@ public class WareHouse : MyBehaviour
 
     public virtual ResHolder AddResource(ResourceName resourceName, float number)
     {
-        ResHolder resHolder = this.GetHolder(resourceName);
-        resHolder.Add(number);
-        return resHolder;
+        ResHolder res = this.GetResource(resourceName);
+        res.Add(number);
+        return res;
+    }
+
+    public virtual ResHolder RemoveResource(ResourceName resourceName, float number)
+    {
+        ResHolder res = this.GetResource(resourceName);
+        res.Deduct(number);
+        return res;
     }
 
     public virtual bool IsFull()
@@ -54,4 +61,15 @@ public class WareHouse : MyBehaviour
         }
         return true;
     }
+
+    public virtual ResHolder ResNeedToMove()
+    {
+        return null;
+    }
+
+    public virtual ResHolder IsNeedRes(Resource resource)
+    {
+        return null;
+    }
+
 }

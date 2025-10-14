@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ForestHut : WareHouse
 {
-    protected override void LoadComponents()
+    public override ResHolder ResNeedToMove()
     {
-        base.LoadComponents();
-        this.buildingType = BuildingType.workStation;
+        ResHolder resHolder = this.GetResource(ResourceName.logwood);
+        if (resHolder.ResCurrent() > 0) return resHolder;
+        return null;
     }
 }

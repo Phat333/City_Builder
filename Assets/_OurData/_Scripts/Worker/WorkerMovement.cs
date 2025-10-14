@@ -11,7 +11,7 @@ public class WorkerMovement : MyBehaviour
     [SerializeField] protected Animator animator;
     public bool IsWalking = false;
     public bool IsWorking = false;
-
+    public WorkingType workingType = WorkingType.chopTree;
     [SerializeField] protected float walkLimit = 0.7f;
     [SerializeField] protected float targetDistance = 0f;
     protected override void LoadComponents()
@@ -88,6 +88,7 @@ public class WorkerMovement : MyBehaviour
     {
         this.workerCtrl.animator.SetBool("IsWalking", this.IsWalking);
         this.workerCtrl.animator.SetBool("IsWorking", this.IsWorking);
+        this.workerCtrl.animator.SetFloat("WorkingType", (float)this.workingType);
     }
 
     public virtual float TargetDistance()

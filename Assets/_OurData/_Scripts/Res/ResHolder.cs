@@ -37,6 +37,11 @@ public class ResHolder : MyBehaviour
         return this.resCurrent;
     }
 
+    public virtual float Deduct(float number)
+    {
+        return this.Add(-number);
+    }
+
     public virtual float ResCurrent()
     {
         return this.resCurrent;

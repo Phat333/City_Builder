@@ -4,11 +4,15 @@ public enum TaskType
     
     goToWorkStation = 1,
     goToHome = 2,
+    gotoWorkingPoint = 3,
 
     plantTree = 101,
     chopTree = 102,
     findTreeToChop = 103,
     bringResourceBack = 104,
     makingResource = 105,
+
+    getResNeedToMove = 200,
+    findBuildingNeedRes = 203,
 
 }

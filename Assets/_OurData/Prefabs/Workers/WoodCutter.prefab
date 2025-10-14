@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5508702563595708382}
   - component: {fileID: 434944892}
   - component: {fileID: 8225414340907729155}
+  - component: {fileID: 6913331034648212404}
   m_Layer: 0
   m_Name: WoodCutter
   m_TagString: Untagged
@@ -30,14 +31,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145304562656648574}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 28.72, y: 0.374, z: 11.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 400399012198672813}
   - {fileID: 7730430618785994205}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &145304562656648568
 MonoBehaviour:
@@ -57,6 +59,7 @@ MonoBehaviour:
   animator: {fileID: 6011931751263843287}
   IsWalking: 0
   IsWorking: 0
+  workingType: 0
   walkLimit: 0.7
   targetDistance: 0
 --- !u!195 &145304562656648569
@@ -99,7 +102,7 @@ MonoBehaviour:
   animator: {fileID: 6011931751263843287}
   workerModel: {fileID: 400399012198672813}
   navMeshAgent: {fileID: 145304562656648569}
-  resCarrier: {fileID: 0}
+  resCarrier: {fileID: 8225414340907729155}
 --- !u!114 &8920323039412536725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +169,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resources: []
+--- !u!95 &6913331034648212404
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145304562656648574}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2fc9bb208dbf68943b983e58da7687f7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1138299377317185373
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,14 +214,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1138299377317185373}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1512205727840564327}
   - {fileID: 7733157758505414467}
   m_Father: {fileID: 145304562656648575}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3962196535355279921
 GameObject:
@@ -222,12 +248,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3962196535355279921}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7730430618785994205}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2279363930065632019
 MonoBehaviour:
@@ -268,12 +295,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6828416503928503499}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7730430618785994205}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3113440868684531622
 MonoBehaviour:
@@ -295,6 +323,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 145304562656648575}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 66ddd2960d0c19041b83eb29bb162c14, type: 3}
@@ -343,7 +372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 66ddd2960d0c19041b83eb29bb162c14, type: 3}
       propertyPath: m_Name
-      value: Peasant Man@Breathing Idle
+      value: Peasant Man
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 66ddd2960d0c19041b83eb29bb162c14, type: 3}
       propertyPath: m_Controller
@@ -354,6 +383,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8447082967072642302, guid: 66ddd2960d0c19041b83eb29bb162c14, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2042747229359211038}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66ddd2960d0c19041b83eb29bb162c14, type: 3}
 --- !u!4 &400399012198672813 stripped
 Transform:
@@ -375,6 +410,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8592349733658794680}
     m_Modifications:
     - target: {fileID: 1452301091832352, guid: d0c4f180f05f3e2488dfc85694e6ac67, type: 3}
@@ -426,4 +462,12 @@ PrefabInstance:
       value: -51.983
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0c4f180f05f3e2488dfc85694e6ac67, type: 3}
+--- !u!4 &2042747229359211038 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4121385620222682, guid: d0c4f180f05f3e2488dfc85694e6ac67, type: 3}
+  m_PrefabInstance: {fileID: 2042364464732221636}
+  m_PrefabAsset: {fileID: 0}

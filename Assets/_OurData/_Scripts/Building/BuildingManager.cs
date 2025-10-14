@@ -46,4 +46,9 @@ public class BuildingManager : MyBehaviour
         }
         return null;
     }
+
+    public virtual List<BuildingCtrl> BuildingCtrls()
+    {
+        return this.buildingCtrls;
+    }
 }

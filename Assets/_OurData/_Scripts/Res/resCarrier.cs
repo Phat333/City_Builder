@@ -28,6 +28,12 @@ public class resCarrier : MonoBehaviour
         this.resources = new List<Resource>();
         return resources;
     }
+    public virtual Resource TakeFirst()
+    {
+        Resource res = this.resources[0];
+        this.resources.RemoveAt(0);
+        return res;
+    }
 
     public virtual Resource GetResByName(ResourceName resourceName)
     {
@@ -38,6 +44,11 @@ public class resCarrier : MonoBehaviour
             this.resources.Add(res);
         }
         return res;
+    }
+
+    public virtual List<Resource> Resource()
+    {
+        return this.resources;
     }
 
 }

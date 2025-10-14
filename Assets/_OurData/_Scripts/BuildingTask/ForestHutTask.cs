@@ -9,13 +9,14 @@ public class ForestHutTask : BuildingTask
     [SerializeField] protected GameObject plantTreeObj;
     [SerializeField] protected float treeRange = 27f;
     [SerializeField] protected float treeDistance = 7f;
-    [SerializeField] protected List<GameObject> trees;
     [SerializeField] protected int treeMax = 7;
     [SerializeField] protected float treeRemoveSpeed = 16;
-    [SerializeField] protected List<GameObject> treePrefabs;
     [SerializeField] protected int storeMax = 21;
     [SerializeField] protected int storeCurrent = 0;
     [SerializeField] protected float chopSpeed = 7;
+    [SerializeField] protected List<GameObject> trees;
+    [SerializeField] protected List<GameObject> treePrefabs;
+
 
     protected override void Start()
     {
@@ -87,6 +88,7 @@ public class ForestHutTask : BuildingTask
         {
             workerCtrl.workerMovement.SetTarget(null);
             workerCtrl.workerTasks.TaskAdd(TaskType.plantTree);
+            
         }
     }
 
@@ -105,8 +107,7 @@ public class ForestHutTask : BuildingTask
         workerCtrl.workerMovement.SetTarget(target);
 
         if (workerCtrl.workerMovement.IsCloseToTarget())
-        {
-            
+        {  
 
             this.Planting(workerCtrl.transform);
             workerCtrl.workerMovement.SetTarget(null);
