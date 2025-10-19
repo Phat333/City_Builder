@@ -2,10 +2,21 @@ using UnityEngine;
 
 public class CameraCtrl : MyBehaviour
 {
+    public static CameraCtrl instance;
     [Header("Camera Ctrl")]
     public Camera _camera;
     public CameraMovement cameraMovement;
 
+
+    protected override void Awake()
+    {
+        base.Awake();
+        if (CameraCtrl.instance != null) Debug.LogError("Only 1 CameraCtrl allow");
+        CameraCtrl.instance = this;
+        {
+            
+        }
+    }
     protected override void LoadComponents()
     {
         base.LoadComponents();
