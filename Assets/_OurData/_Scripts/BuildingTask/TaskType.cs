@@ -14,5 +14,7 @@ public enum TaskType
 
     getResNeedToMove = 200,
     findBuildingNeedRes = 203,
+    findWarehouseHasRes = 204,
+    buildConstruction = 205,
 
 }

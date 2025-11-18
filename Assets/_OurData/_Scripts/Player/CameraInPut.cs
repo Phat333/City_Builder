@@ -13,6 +13,7 @@ public class CameraInPut : MyBehaviour
     {
         this.InputHandler();
         this.MouseRotation();
+        this.ChoosePlaceToBuild();
     }
 
     protected override void LoadComponents()
@@ -34,11 +35,11 @@ public class CameraInPut : MyBehaviour
         float z = Input.GetAxis("Vertical");
         float y = Input.mouseScrollDelta.y * -1;
         bool leftShift = Input.GetKey(KeyCode.LeftShift);
-        this.isMouseRotating = Input.GetMouseButton(1);
-        if(Input.GetMouseButtonDown(1))
-        {
-            this.mouseReference = Input.mousePosition;
-        }
+        //this.isMouseRotating = Input.GetMouseButton(1);
+        //if(Input.GetMouseButtonDown(1))
+        //{
+        //    this.mouseReference = Input.mousePosition;
+        //}
         this.cameraCtrl.cameraMovement.cameraMovement.x = x;
         this.cameraCtrl.cameraMovement.cameraMovement.z = z;
         this.cameraCtrl.cameraMovement.cameraMovement.y = y;
@@ -48,8 +49,8 @@ public class CameraInPut : MyBehaviour
 
     protected virtual void MouseRotation()
     {
-        this.isMouseRotating = Input.GetMouseButton(1);
-        if (Input.GetMouseButtonDown(1)) this.mouseReference = Input.mousePosition;
+        this.isMouseRotating = Input.GetKey(KeyCode.Mouse1);
+        if (Input.GetKeyDown(KeyCode.Mouse1)) this.mouseReference = Input.mousePosition;
         if (this.isMouseRotating)
         {
             this.mouseRotation = (Input.mousePosition - this.mouseReference);
@@ -62,6 +63,13 @@ public class CameraInPut : MyBehaviour
             this.mouseRotation = Vector3.zero;
         }
         this.cameraCtrl.cameraMovement.camRotation.y = this.mouseRotation.x;
+    }
+
+    protected virtual void ChoosePlaceToBuild()
+    {
+        if (!BuildManager.instance.isBuilding) return;
+        if (!Input.GetKeyUp(KeyCode.Mouse0)) return;
+        BuildManager.instance.CurrentBuildPlace();
     }
 
 }

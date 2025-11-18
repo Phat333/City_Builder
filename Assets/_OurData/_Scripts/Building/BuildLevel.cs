@@ -7,7 +7,7 @@ public class BuildLevel : MyBehaviour
     [SerializeField] protected List<Transform> levels;
     [SerializeField] protected int currentLevel = 0;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
         this.ShowBuilding();
         //InvokeRepeating("ShowNextBuild", 3, 2);

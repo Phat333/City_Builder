@@ -1,12 +1,5 @@
 fileFormatVersion: 2
 guid: ea48d15a3d30c4943927bc8edcd3ff96
-AssetOrigin:
-  serializedVersion: 1
-  productId: 148410
-  packageName: RPG Poly Pack - Lite
-  packageVersion: 1.0
-  assetPath: Assets/RPGPP_LT/Models/Props/rpgpp_lt_shield_wall_01b.fbx
-  uploadId: 316754
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable:
@@ -127,3 +120,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 148410
+  packageName: RPG Poly Pack - Lite
+  packageVersion: 1.0.1
+  assetPath: Assets/RPGPP_LT/Models/Props/rpgpp_lt_shield_wall_01b.fbx
+  uploadId: 766582

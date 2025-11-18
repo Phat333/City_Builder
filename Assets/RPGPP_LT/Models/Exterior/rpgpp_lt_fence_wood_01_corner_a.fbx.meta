@@ -105,3 +105,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 148410
+  packageName: RPG Poly Pack - Lite
+  packageVersion: 1.0.1
+  assetPath: Assets/RPGPP_LT/Models/Exterior/rpgpp_lt_fence_wood_01_corner_a.fbx
+  uploadId: 766582

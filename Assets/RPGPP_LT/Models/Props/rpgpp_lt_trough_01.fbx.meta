@@ -1,12 +1,5 @@
 fileFormatVersion: 2
 guid: 8b3f67c33dd9e9c4ea594b19207b4fbe
-AssetOrigin:
-  serializedVersion: 1
-  productId: 148410
-  packageName: RPG Poly Pack - Lite
-  packageVersion: 1.0
-  assetPath: Assets/RPGPP_LT/Models/Props/rpgpp_lt_trough_01.fbx
-  uploadId: 316754
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable:
@@ -127,3 +120,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 148410
+  packageName: RPG Poly Pack - Lite
+  packageVersion: 1.0.1
+  assetPath: Assets/RPGPP_LT/Models/Props/rpgpp_lt_trough_01.fbx
+  uploadId: 766582

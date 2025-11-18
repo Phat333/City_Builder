@@ -35,4 +35,8 @@ public class MyBehaviour : MonoBehaviour
     {
         //For Override
     }
+    protected virtual void OnEnable()
+    {
+        //For Override
+    }
 }

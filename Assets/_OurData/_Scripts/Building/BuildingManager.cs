@@ -51,4 +51,10 @@ public class BuildingManager : MyBehaviour
     {
         return this.buildingCtrls;
     }
+
+    public virtual void AddBuilding(BuildingCtrl buildingCtrl)
+    {
+        this.buildingCtrls.Add(buildingCtrl);
+        buildingCtrl.transform.parent = transform;
+    }
 }

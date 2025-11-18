@@ -98,6 +98,9 @@ public class BuildManager : MyBehaviour
         this.currentBuild.gameObject.SetActive(false);
         this.currentBuild = null;
         this.isBuilding = false;
+
+        AbstractConstruction abstractConstruction = newBuild.GetComponent<AbstractConstruction>();
+        ConstructionManager.instance.AddConstruction(abstractConstruction);
     }
 
     private void OnDrawGizmosSelect()

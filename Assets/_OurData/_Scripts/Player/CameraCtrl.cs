@@ -13,15 +13,14 @@ public class CameraCtrl : MyBehaviour
         base.Awake();
         if (CameraCtrl.instance != null) Debug.LogError("Only 1 CameraCtrl allow");
         CameraCtrl.instance = this;
-        {
-            
-        }
+        
     }
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadCamera();
         this.LoadCameraMovement();
+        this.LoadCamera();
+        
     }
 
     protected virtual void LoadCameraMovement()
