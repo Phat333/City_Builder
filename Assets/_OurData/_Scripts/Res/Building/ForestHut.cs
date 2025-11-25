@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sawmill : WareHouse
+public class ForestHut : WareHouse
 {
     public override ResHolder ResNeedToMove()
     {
@@ -11,12 +11,5 @@ public class Sawmill : WareHouse
         return null;
     }
 
-    public override ResHolder IsNeedRes(Resource resource)
-    {
-        if (resource.name != ResourceName.logwood) return null;
-
-        ResHolder resHolder = this.GetResource(resource.name);
-        if (resHolder.IsMax()) return null;
-        return resHolder;
-    }
+    
 }

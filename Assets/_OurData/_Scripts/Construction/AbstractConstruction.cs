@@ -18,7 +18,7 @@ public class AbstractConstruction : MyBehaviour
         
         base.FixedUpdate();
         this.Building();
-        if (this.percent >= 100) this.FinishBuild();
+        if (this.percent >= 100f) this.FinishBuild();
     }
 
     protected override void OnEnable()

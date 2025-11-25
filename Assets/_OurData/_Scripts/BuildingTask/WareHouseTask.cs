@@ -65,7 +65,7 @@ public class WareHouseTask : BuildingTask
         this.DoneGetResNeedToMove(workerCtrl);
 
         Resource res = workerCtrl.resCarrier.Resource()[0];
-        BuildingCtrl buildingCtrl = this.FindBuildingNeedRes(res);
+        BuildingCtrl buildingCtrl = this.FindBuildingNeedRes(resHolder.Name());
         workerTasks.taskBuildingCtrl = buildingCtrl;
         workerTasks.TaskAdd(TaskType.bringResourceBack);
 
@@ -92,12 +92,12 @@ public class WareHouseTask : BuildingTask
         return null;
     }
 
-    protected virtual BuildingCtrl FindBuildingNeedRes(Resource res)
+    protected virtual BuildingCtrl FindBuildingNeedRes(ResourceName resName)
     {
         foreach(BuildingCtrl buildingCtrl in BuildingManager.Instance.BuildingCtrls())
         {
             if (buildingCtrl.wareHouse.buildingType != BuildingType.workStation) continue;
-            ResHolder resHolder = buildingCtrl.wareHouse.IsNeedRes(res);
+            ResHolder resHolder = buildingCtrl.wareHouse.IsNeedRes(resName);
             if (resHolder == null) continue;
             return buildingCtrl;
         }

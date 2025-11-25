@@ -106,7 +106,7 @@ public class BuildManager : MyBehaviour
     private void OnDrawGizmosSelect()
     {
         if (this.currentBuild == null) return;
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.blue;
         Gizmos.DrawLine(CameraCtrl.instance._camera.transform.position, this.buildPos);
     }
 

@@ -67,7 +67,7 @@ public class WareHouse : MyBehaviour
         return null;
     }
 
-    public virtual ResHolder IsNeedRes(Resource resource)
+    public virtual ResHolder IsNeedRes(ResourceName resName)
     {
         return null;
     }
