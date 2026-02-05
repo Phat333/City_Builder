@@ -8,7 +8,7 @@ public class AbstractConstruction : MyBehaviour
     public BuildingCtrl builder;
     [SerializeField] protected float percent = 0f;
     [SerializeField] protected float timer = 0f;
-    [SerializeField] protected float delay = 0.05f;
+    [SerializeField] protected float delay = 0.5f;
     [SerializeField] protected List<string> buildNames;
     [SerializeField] protected List<Resource> resRequires;
     [SerializeField] protected List<Resource> resHave;

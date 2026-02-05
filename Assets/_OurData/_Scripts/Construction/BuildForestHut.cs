@@ -9,4 +9,5 @@ public class BuildForestHut : Buildbuilding
         this.resRequires.Add(new Resource { name = ResourceName.plank, number = 2 });
         Debug.Log(transform.name + ": LoadResRequires", gameObject);
     }
+    
 }

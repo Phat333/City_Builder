@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResHolder
   resourceName: 2001
-  resCurrent: 0
+  resCurrent: 50
   resMax: Infinity
 --- !u!1 &3959460099735603131
 GameObject:
@@ -78,7 +78,7 @@ Transform:
   m_GameObject: {fileID: 3959460099735603131}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -156.62, y: -2.97, z: 79.25}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -98,11 +98,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 2, y: 1.5, z: 2.25}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1.5, z: -0.1}
   m_TimeToStationary: 0.5
 --- !u!114 &5734642851841874995
 MonoBehaviour:
@@ -120,7 +120,7 @@ MonoBehaviour:
   door: {fileID: 8543708382495975492}
   workers: {fileID: 294528966594505190}
   wareHouse: {fileID: 8986013863835504406}
-  buildingTask: {fileID: 7553577925346561867}
+  buildingTask: {fileID: 0}
 --- !u!114 &294528966594505190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,8 +154,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.0786896, y: 2.9267423, z: 4.457756}
-  m_Center: {x: -0.14316559, y: 1.1950611, z: -0.22682571}
+  m_Size: {x: 4, y: 3, z: 4.5}
+  m_Center: {x: 0, y: 1.5, z: -0.1}
 --- !u!114 &8986013863835504406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 7836565805542735228}
   - component: {fileID: 9164783949698254155}
   m_Layer: 0
-  m_Name: Water
+  m_Name: water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1fbbe19f9d2fa4080571c3ec0bfe6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResHolder
-  resourceName: 0
+  resourceName: 1000
   resCurrent: 0
   resMax: Infinity
 --- !u!1 &6860478089949134925
@@ -327,7 +327,7 @@ Transform:
   m_GameObject: {fileID: 6991732821553406716}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 2}
+  m_LocalPosition: {x: 0, y: 1, z: 2.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -358,7 +358,7 @@ Transform:
   m_GameObject: {fileID: 7103552924701200648}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResHolder
   resourceName: 1001
-  resCurrent: 0
+  resCurrent: 50
   resMax: Infinity
 --- !u!1001 &9095647179821177705
 PrefabInstance:

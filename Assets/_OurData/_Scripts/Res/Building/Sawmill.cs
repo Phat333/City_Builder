@@ -6,7 +6,7 @@ public class SawMill : WareHouse
 {
     public override ResHolder ResNeedToMove()
     {
-        ResHolder resHolder = this.GetResource(ResourceName.logwood);
+        ResHolder resHolder = this.GetResource(ResourceName.plank);
         if (resHolder.ResCurrent() > 0) return resHolder;
         return null;
     }

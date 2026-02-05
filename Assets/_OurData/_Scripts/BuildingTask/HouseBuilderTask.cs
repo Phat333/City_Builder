@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class HouseBuilderTask : BuildingTask
@@ -14,6 +14,7 @@ public class HouseBuilderTask : BuildingTask
 
     public override void DoingTask(WorkerCtrl workerCtrl)
     {
+ 
         switch (workerCtrl.workerTasks.TaskCurrent())
         {
             case TaskType.findWarehouseHasRes:
@@ -28,6 +29,9 @@ public class HouseBuilderTask : BuildingTask
             case TaskType.buildConstruction:
                 this.BuildConstruction(workerCtrl);
                 break;
+            case TaskType.goToWorkStation:
+                this.BackToWorkStation(workerCtrl);
+                break;
             default:
                 if (this.IsTimeToWork()) this.Planning(workerCtrl);
                 break;
@@ -36,7 +40,7 @@ public class HouseBuilderTask : BuildingTask
 
     protected virtual void Planning(WorkerCtrl workerCtrl)
     {
-        this.construction = ConstructionManager.instance.GetConstruction();
+        if (this.construction == null) this.construction = ConstructionManager.instance.GetConstruction();
         if (this.construction)
         {
             this.construction.builder = this.buildingCtrl;
@@ -60,13 +64,6 @@ public class HouseBuilderTask : BuildingTask
     protected virtual void FindWarehouseHasRes(WorkerCtrl workerCtrl)
     {
         ResourceName resRequireName = this.construction.GetResRequireName();
-        if (resRequireName == ResourceName.noResource)
-        {
-            workerCtrl.workerMovement.SetTarget(null);
-            workerCtrl.workerTasks.TaskCurrentDone();
-            workerCtrl.workerTasks.TaskAdd(TaskType.buildConstruction);
-            return;
-        }
 
         foreach (BuildingCtrl warehouse in this.warehouses)
         {
@@ -84,7 +81,16 @@ public class HouseBuilderTask : BuildingTask
         BuildingCtrl warehouseCtrl = workerCtrl.workerTasks.taskBuildingCtrl;
 
         ResourceName resRequireName = this.construction.GetResRequireName();
+
+        
         ResHolder resHolder = warehouseCtrl.wareHouse.GetResource(resRequireName);
+        if (resRequireName == ResourceName.noResource)
+        {
+            workerCtrl.workerMovement.SetTarget(null);
+            //workerCtrl.workerTasks.TaskCurrentDone();
+            //workerCtrl.workerTasks.TaskAdd(TaskType.buildConstruction);
+            return;
+        }
         if (resHolder.ResCurrent() < 1)
         {
             workerCtrl.workerTasks.TaskCurrentDone();
@@ -116,7 +122,7 @@ public class HouseBuilderTask : BuildingTask
         if (target == null) workerCtrl.workerMovement.SetTarget(this.construction.transform);
         if (!workerCtrl.workerMovement.IsCloseToTarget()) return;
 
-        workerCtrl.workerMovement.SetTarget(null);
+        //workerCtrl.workerMovement.SetTarget(null);
         workerCtrl.workerTasks.TaskCurrentDone();
         Resource res = workerCtrl.resCarrier.TakeFirst();
         this.construction.AddRes(res.name, res.number);
@@ -134,7 +140,22 @@ public class HouseBuilderTask : BuildingTask
 
     protected virtual void BuildConstruction(WorkerCtrl workerCtrl)
     {
-        
+        if (!this.IsContrucstionFinish()) return;
+
+        workerCtrl.workerTasks.TaskCurrentDone();
+        workerCtrl.workerTasks.TaskAdd(TaskType.goToWorkStation);
+        //Debug.Log("BuildConstruction");
+        //float percent = this.construction.Percent();
+        //if (percent < 99) return;
+        //{
+        //    workerCtrl.workerTasks.TaskCurrentDone();
+        //    workerCtrl.workerMovement.SetTarget(null);
+        //    workerCtrl.workerTasks.TaskAdd(TaskType.goToWorkStation);
+
+        //    this.construction.Finish();
+        //    this.construction = null;
+        //}
+        //Debug.Log("Percent: " + percent);
     }
 
     protected virtual bool IsContrucstionFinish()
@@ -148,4 +169,6 @@ public class HouseBuilderTask : BuildingTask
         this.construction = null;
         return true;
     }
+
+
 }
