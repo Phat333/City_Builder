@@ -29,7 +29,7 @@ public class WorkerBuildings : MyBehaviour
         this.homeBuilding = buildingCtrl;
     }
 
-    public virtual void WorkerRelease()
+    public virtual void WorkerReleased()
     {
         this.workBuilding = null;
         this.homeBuilding = null;

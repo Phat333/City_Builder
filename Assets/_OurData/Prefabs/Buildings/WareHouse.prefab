@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4058968027047176322}
   - component: {fileID: 2488795642644003959}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: plank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 4486050093758255157}
   - component: {fileID: 8986013863835504406}
   - component: {fileID: 7553577925346561867}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WareHouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5806055858678276692}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Res
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7836565805542735228}
   - component: {fileID: 9164783949698254155}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1868739785558314916}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Workers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8543708382495975492}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
@@ -342,7 +342,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5893469770292560117}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8854179883800405238}
   - component: {fileID: 4574203012067856493}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: logwood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,6 +423,10 @@ PrefabInstance:
     - target: {fileID: 1275909538635612, guid: 2767c12992d890f44b14f433fe854668, type: 3}
       propertyPath: m_Name
       value: rpgpp_lt_building_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275909538635612, guid: 2767c12992d890f44b14f433fe854668, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4422725698349158, guid: 2767c12992d890f44b14f433fe854668, type: 3}
       propertyPath: m_LocalScale.x

@@ -86,6 +86,7 @@ public class WorkerTasks : MyBehaviour
     {
         if (this.tasks.Count <= 0) return;
         this.tasks.RemoveAt(this.tasks.Count - 1);
+        this.workerCtrl.workerMovement.SetTarget(null);
     }
 
     public virtual TaskType TaskCurrent()

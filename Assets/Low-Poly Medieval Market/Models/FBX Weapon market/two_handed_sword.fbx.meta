@@ -100,3 +100,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 262473
+  packageName: Low-Poly Medieval Market
+  packageVersion: 1.1
+  assetPath: Assets/Low-Poly Medieval Market/Models/FBX Weapon market/two_handed_sword.fbx
+  uploadId: 617661

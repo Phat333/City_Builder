@@ -35,6 +35,10 @@ public class resCarrier : MonoBehaviour
         this.resources.RemoveAt(0);
         return res;
     }
+    public virtual Resource GetFirst()
+    {
+        return this.resources[0];
+    }    
 
     public virtual Resource GetResByName(ResourceName resourceName)
     {

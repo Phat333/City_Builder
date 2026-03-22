@@ -68,4 +68,11 @@ public class WorkerCtrl : MyBehaviour
         this.resCarrier = GetComponent<resCarrier>();
         Debug.Log(transform.name + ": LoadResCarrier", gameObject);
     }
+
+    public virtual void WorkerReleased()
+    {
+        this.workerTasks.readyForTask = false;
+        this.workerTasks.taskWorking.GoOutBuilding();
+        this.workerBuildings.WorkerReleased();
+    }
 }

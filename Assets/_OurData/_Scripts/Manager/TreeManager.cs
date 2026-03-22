@@ -40,6 +40,11 @@ public class TreeManager : MyBehaviour
         tree.transform.parent = transform;
     }
 
+    public virtual bool TreeRemove(GameObject tree)
+    {
+        return this.trees.Remove(tree);
+    }
+
     public virtual List<GameObject> Trees()
     {
         return this.trees;

@@ -6,6 +6,7 @@ public class AbstractConstruction : MyBehaviour
 {
     [Header("Building Info")]
     public BuildingCtrl builder;
+    public bool isPlaced = false;
     [SerializeField] protected float percent = 0f;
     [SerializeField] protected float timer = 0f;
     [SerializeField] protected float delay = 0.5f;
@@ -36,6 +37,7 @@ public class AbstractConstruction : MyBehaviour
 
     protected virtual void Building()
     {
+        if (!this.isPlaced) return;
         if (!this.HasEnoughResource()) return;
 
         this.timer += Time.fixedDeltaTime;
@@ -109,6 +111,7 @@ public class AbstractConstruction : MyBehaviour
         if (resource != null)
         {
             resource.number += count;
+            Debug.Log($"Added {count} of {resourceName}. New total: {resource.number}", gameObject);
             return;
         }
 
@@ -119,7 +122,7 @@ public class AbstractConstruction : MyBehaviour
         };
         this.resHave.Add(resource);
     }
-
+     
     public virtual float Percent()
     {
         return this.percent;
@@ -127,5 +130,10 @@ public class AbstractConstruction : MyBehaviour
     public virtual void Finish()
     {
         this.percent = 100;
+    }
+
+    public virtual string GetConstructionName()
+    {
+        return transform.name;
     }
 }

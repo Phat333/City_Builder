@@ -9,6 +9,14 @@ public class BuildingTask : MyBehaviour
     [SerializeField] protected float taskTimer = 0;
     [SerializeField] protected float taskDelay = 5f;
     [SerializeField] protected float workTimer = 7;
+    [SerializeField] protected int lastBuildingWorked = 0;
+    [SerializeField] protected List<BuildingCtrl> nearBuildings;
+
+    protected override void Start()
+    {
+        base.Start();
+        this.FindNearBuildings();
+    }
 
     protected override void LoadComponents()
     {
@@ -31,7 +39,7 @@ public class BuildingTask : MyBehaviour
         return true;
     }
 
-    protected virtual void BackToWorkStation(WorkerCtrl workerCtrl)
+    protected virtual void GotoWorkStation(WorkerCtrl workerCtrl)
     {
         WorkerTask taskWorking = workerCtrl.workerTasks.taskWorking;
         taskWorking.GotoBuilding();
@@ -42,8 +50,22 @@ public class BuildingTask : MyBehaviour
         }
     }
 
+    
+
     public virtual void DoingTask(WorkerCtrl workerCtrl)
     {
         //For Override
+    }
+    public virtual void FindNearBuildings()
+    {
+        this.nearBuildings.Clear();
+        this.nearBuildings = new List<BuildingCtrl>(BuildingManager.Instance.BuildingCtrls());
+        this.nearBuildings.Sort(delegate (BuildingCtrl a, BuildingCtrl b)
+        {
+            Vector3 aPos = a.transform.position;
+            Vector3 bPos = b.transform.position;
+            Vector3 currentPos = transform.position;
+            return Vector3.Distance(currentPos, aPos).CompareTo(Vector3.Distance(currentPos, bPos));
+        });
     }
 }

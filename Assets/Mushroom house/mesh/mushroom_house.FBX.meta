@@ -74,3 +74,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 61027
+  packageName: Mushroom house
+  packageVersion: 1.0
+  assetPath: Assets/Mushroom house/mesh/mushroom_house.FBX
+  uploadId: 113733

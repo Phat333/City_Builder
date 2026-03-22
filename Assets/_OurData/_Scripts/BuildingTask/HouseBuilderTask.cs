@@ -30,7 +30,7 @@ public class HouseBuilderTask : BuildingTask
                 this.BuildConstruction(workerCtrl);
                 break;
             case TaskType.goToWorkStation:
-                this.BackToWorkStation(workerCtrl);
+                this.GotoWorkStation(workerCtrl);
                 break;
             default:
                 if (this.IsTimeToWork()) this.Planning(workerCtrl);
@@ -84,17 +84,17 @@ public class HouseBuilderTask : BuildingTask
 
         
         ResHolder resHolder = warehouseCtrl.wareHouse.GetResource(resRequireName);
-        if (resRequireName == ResourceName.noResource)
-        {
-            workerCtrl.workerMovement.SetTarget(null);
-            //workerCtrl.workerTasks.TaskCurrentDone();
-            //workerCtrl.workerTasks.TaskAdd(TaskType.buildConstruction);
-            return;
-        }
+        //if (resRequireName == ResourceName.noResource)
+        //{
+        //    workerCtrl.workerMovement.SetTarget(null);
+        //    //workerCtrl.workerTasks.TaskCurrentDone();
+        //    //workerCtrl.workerTasks.TaskAdd(TaskType.buildConstruction);
+        //    return;
+        //}
         if (resHolder.ResCurrent() < 1)
         {
             workerCtrl.workerTasks.TaskCurrentDone();
-            //workerCtrl.workerTasks.TaskAdd(TaskType.findWarehouseHasRes);
+            workerCtrl.workerTasks.TaskAdd(TaskType.findWarehouseHasRes);
             return;
         }
 
@@ -105,13 +105,14 @@ public class HouseBuilderTask : BuildingTask
         if (target == null) workerCtrl.workerMovement.SetTarget(warehouseCtrl.door);
         if (!workerCtrl.workerMovement.IsCloseToTarget()) return;
 
-        //workerCtrl.workerTasks.TaskCurrentDone();
+        workerCtrl.workerTasks.TaskCurrentDone();
         int carryCount = workerCtrl.resCarrier.carryCount;
         warehouseCtrl.wareHouse.RemoveResource(resRequireName, carryCount);
         workerCtrl.resCarrier.AddResource(resRequireName, carryCount);
-
         workerCtrl.workerTasks.TaskCurrentDone();
-        workerCtrl.workerMovement.SetTarget(null);
+        if(this.construction!=null) workerCtrl.workerMovement.SetTarget(this.construction.transform);
+        else  workerCtrl.workerMovement.SetTarget(null);
+
         workerCtrl.workerTasks.TaskAdd(TaskType.bringResourceBack);
         
     }
@@ -122,7 +123,6 @@ public class HouseBuilderTask : BuildingTask
         if (target == null) workerCtrl.workerMovement.SetTarget(this.construction.transform);
         if (!workerCtrl.workerMovement.IsCloseToTarget()) return;
 
-        //workerCtrl.workerMovement.SetTarget(null);
         workerCtrl.workerTasks.TaskCurrentDone();
         Resource res = workerCtrl.resCarrier.TakeFirst();
         this.construction.AddRes(res.name, res.number);

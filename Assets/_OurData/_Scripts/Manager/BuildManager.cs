@@ -84,7 +84,8 @@ public class BuildManager : MyBehaviour
     {
         if(this.currentBuild==null) return;
         Ray ray = CameraCtrl.instance._camera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        int mask = (1 << MyLayerManager.instance.layerGround);
+        if (Physics.Raycast(ray, out RaycastHit hit, 999, mask))
         {
             this.buildPos = hit.point;
             this.currentBuild.position = this.buildPos;
@@ -92,21 +93,31 @@ public class BuildManager : MyBehaviour
     }
     public virtual void CurrentBuildPlace()
     {
+        if (this.currentBuild == null) return;
+        ConstructionCtrl constructionCtrl = this.currentBuild.GetComponent<ConstructionCtrl>();
+        if (constructionCtrl && constructionCtrl.limitRadius.IsCollided())
+        {
+            Debug.Log("Collided: " + constructionCtrl.limitRadius.collideObjects.Count);
+            return;
+        }
+
         GameObject newBuild = Instantiate(this.currentBuild.gameObject);
         newBuild.transform.position = this.buildPos;
+        newBuild.name = this.currentBuild.name;
 
         this.currentBuild.gameObject.SetActive(false);
         this.currentBuild = null;
         this.isBuilding = false;
 
         AbstractConstruction abstractConstruction = newBuild.GetComponent<AbstractConstruction>();
+        abstractConstruction.isPlaced = true;
         ConstructionManager.instance.AddConstruction(abstractConstruction);
     }
 
-    private void OnDrawGizmosSelect()
+    private void OnDrawGizmosSelected()
     {
         if (this.currentBuild == null) return;
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.red;
         Gizmos.DrawLine(CameraCtrl.instance._camera.transform.position, this.buildPos);
     }
 

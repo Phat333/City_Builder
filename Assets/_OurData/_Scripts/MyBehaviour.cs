@@ -6,6 +6,7 @@ public class MyBehaviour : MonoBehaviour
 {
     protected virtual void Awake()
     {
+        this.ResetValues();
         this.LoadComponents();
     }
 
@@ -36,6 +37,11 @@ public class MyBehaviour : MonoBehaviour
         //For Override
     }
     protected virtual void OnEnable()
+    {
+        //For Override
+    }
+
+    protected virtual void ResetValues()
     {
         //For Override
     }

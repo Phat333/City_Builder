@@ -37,7 +37,7 @@ public class SawMillTask : BuildingTask
                 Debug.Log("SawMillTask gotoWorkingPoint");
                 break;
             case TaskType.goToWorkStation:
-                this.BackToWorkStation(workerCtrl);
+                this.GotoWorkStation(workerCtrl);
                 break;
             default:
                 if (this.IsTimeToWork()) this.Planning(workerCtrl);

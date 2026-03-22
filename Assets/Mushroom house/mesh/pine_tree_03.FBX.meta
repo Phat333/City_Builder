@@ -85,3 +85,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 61027
+  packageName: Mushroom house
+  packageVersion: 1.0
+  assetPath: Assets/Mushroom house/mesh/pine_tree_03.FBX
+  uploadId: 113733

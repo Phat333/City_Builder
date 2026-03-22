@@ -35,4 +35,12 @@ public class Workers : MyBehaviour
         this.workers.Add(worker);
         
     }
+    public virtual void ReleaseWorkers()
+    {
+        foreach(WorkerCtrl workerCtrl in this.workers)
+        {
+            workerCtrl.WorkerReleased();
+        }
+        this.workers.Clear();
+    }
 }

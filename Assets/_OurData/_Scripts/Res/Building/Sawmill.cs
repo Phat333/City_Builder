@@ -10,11 +10,20 @@ public class SawMill : WareHouse
         if (resHolder.ResCurrent() > 0) return resHolder;
         return null;
     }
-    public override ResHolder IsNeedRes(ResourceName resName)
+    public override List<Resource> NeedResource()
     {
-        if (resName != ResourceName.logwood) return null;
-        ResHolder resHolder = this.GetResource(resName);
-        if (resHolder.IsMax()) return null;
-        return resHolder;
+        List<Resource> resources = new List<Resource>();
+
+
+        ResHolder logwood = this.GetResource(ResourceName.logwood);
+        Resource resLogwood = new Resource
+        {
+            name = logwood.Name(),
+            number = logwood.resMax - logwood.ResCurrent()
+        };
+
+        if (resLogwood.number > 0) resources.Add(resLogwood);
+
+        return resources;
     }
 }
